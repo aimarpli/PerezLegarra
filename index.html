@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerezLegarra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+        /* --- Fondo Abstracto Animado --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .bg-shape {
+            position: absolute;
+            filter: blur(120px);
+            opacity: 0.7;
+            animation: float 20s infinite alternate ease-in-out;
+            border-radius: 50%;
+        }
+        .shape1 { width: 70vw; height: 70vw; background: rgba(15, 55, 120, 0.6); top: -20vh; left: -15vw; }
+        .shape2 { width: 60vw; height: 60vw; background: rgba(70, 20, 110, 0.5); bottom: -20vh; right: -10vw; animation-delay: -7s; }
+        .shape3 { width: 50vw; height: 50vw; background: rgba(10, 15, 30, 0.8); top: 30vh; left: 20vw; animation-delay: -12s; mix-blend-mode: multiply; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(8vw, -5vh) scale(1.05); }
+            100% { transform: translate(-5vw, 8vh) scale(0.95); }
+        }
+
+        /* --- Estilos UI --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .glass-card {
+            background: rgba(0, 0, 0, 0.4); /* 40% translucidez como solicitado */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .input-minimal {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        .input-minimal::placeholder { color: rgba(255, 255, 255, 0.3); }
+        .input-minimal:focus {
+            border-color: rgba(120, 80, 200, 0.6);
+            box-shadow: 0 0 15px rgba(120, 80, 200, 0.15);
+            outline: none;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #5b21b6 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            box-shadow: 0 0 25px rgba(91, 33, 182, 0.4);
+            transform: translateY(-2px);
+        }
+        .btn-gradient:active { transform: translateY(0); }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+        /* Utilidades Generales */
+        .hidden { display: none !important; }
+        .error-text { color: #f87171; font-size: 0.75rem; margin-top: 0.5rem; text-align: center; height: 1rem; transition: opacity 0.3s;}
+        
+        /* Scrollbar para listas */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        /* --- Animaciones --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        /* Entradas Integradas (Admin) */
+        .input-flush {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .input-flush::placeholder { color: rgba(255, 255, 255, 0.3); }
+        .input-flush:focus {
+            border-bottom-color: #8b5cf6;
+            outline: none;
+            box-shadow: 0 4px 6px -6px rgba(139, 92, 246, 0.3);
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* Checkboxes Personalizados */
+        .checkbox-custom {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: rgba(255, 255, 255, 0.03);
+            margin: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.3rem;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .checkbox-custom:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        .checkbox-custom::before {
+            content: "";
+            width: 0.65rem;
+            height: 0.65rem;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em white;
+            background-color: transparent;
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .checkbox-custom:checked {
+            background-color: #7c3aed;
+            border-color: #7c3aed;
+        }
+        .checkbox-custom:checked::before {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo Abstracto -->
+    <div id="bg-canvas">
+        <div class="shape1 bg-shape"></div>
+        <div class="shape2 bg-shape"></div>
+        <div class="shape3 bg-shape"></div>
+    </div>
+
+    <!-- PANTALLA DE CARGA -->
+    <div id="view-loading" class="flex items-center justify-center min-h-screen">
+        <div class="animate-pulse flex flex-col items-center">
+            <div class="h-1 w-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-4"></div>
+            <p class="text-xs tracking-widest text-gray-400 uppercase">Cargando Sistema...</p>
+        </div>
+    </div>
+
+    <!-- PANTALLA 1: LOGIN -->
+    <div id="view-login" class="hidden flex items-center justify-center min-h-screen">
+        <div class="glass-panel relative w-full max-w-sm p-10 rounded-2xl mx-4 animate-fade-in">
+            <div class="flex items-center justify-center gap-3 mb-10">
+                <div class="bg-white p-2 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center">
+                    <img src="icon.png" alt="Logo" class="h-7 w-7 object-contain" onerror="this.parentElement.style.display='none'">
+                </div>
+                <h1 class="text-2xl font-light tracking-wide">PerezLegarra</h1>
+            </div>
+            <form id="loginForm" class="space-y-6" novalidate>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 ml-1">Usuario</label>
+                    <input type="text" id="login-username" class="input-minimal w-full px-4 py-3.5 rounded-xl text-sm font-light" placeholder="Tu usuario" autocomplete="off">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 ml-1">Contraseña</label>
+                    <input type="password" id="login-password" class="input-minimal w-full px-4 py-3.5 rounded-xl text-sm font-light" placeholder="••••••••" autocomplete="off">
+                </div>
+                <div id="login-error" class="error-text opacity-0"></div>
+                <button type="submit" class="btn-gradient w-full py-4 mt-2 rounded-xl text-xs font-medium tracking-[0.1em] uppercase text-gray-50">
+                    Iniciar Sesión
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANTALLA 2: SETUP INICIAL (CREAR ADMIN) -->
+    <div id="view-setup" class="hidden flex items-center justify-center min-h-screen">
+        <div class="glass-panel relative w-full max-w-sm p-10 rounded-2xl mx-4 animate-fade-in">
+            <div class="text-center mb-8">
+                <div class="flex justify-center mb-3">
+                    <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h1 class="text-xl font-light tracking-wide mb-1">Configuración Inicial</h1>
+                <p class="text-xs text-gray-400 mt-2">No hay usuarios. Crea el administrador maestro.</p>
+            </div>
+            <form id="setupForm" class="space-y-6" novalidate>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 ml-1">Usuario Admin</label>
+                    <input type="text" id="setup-username" class="input-minimal w-full px-4 py-3 rounded-xl text-sm font-light" placeholder="admin">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 ml-1">Contraseña</label>
+                    <input type="password" id="setup-password" class="input-minimal w-full px-4 py-3 rounded-xl text-sm font-light" placeholder="••••••••">
+                </div>
+                <div id="setup-error" class="error-text opacity-0"></div>
+                <button type="submit" class="btn-gradient w-full py-4 mt-2 rounded-xl text-xs font-medium tracking-[0.1em] uppercase text-gray-50">
+                    Crear Administrador
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANTALLA 3: FORZAR NUEVA CONTRASEÑA -->
+    <div id="view-force-password" class="hidden flex items-center justify-center min-h-screen">
+        <div class="glass-panel relative w-full max-w-sm p-10 rounded-2xl mx-4 animate-fade-in">
+            <div class="text-center mb-8">
+                <h1 class="text-xl font-light tracking-wide mb-1">Bienvenido</h1>
+                <p class="text-xs text-gray-400 mt-2">Por tu seguridad, debes definir una contraseña antes de continuar.</p>
+            </div>
+            <form id="forcePasswordForm" class="space-y-6" novalidate>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 ml-1">Nueva Contraseña</label>
+                    <input type="password" id="force-password" class="input-minimal w-full px-4 py-3 rounded-xl text-sm font-light" placeholder="••••••••">
+                </div>
+                <div id="force-error" class="error-text opacity-0"></div>
+                <button type="submit" class="btn-gradient w-full py-4 mt-2 rounded-xl text-xs font-medium tracking-[0.1em] uppercase text-gray-50">
+                    Guardar y Entrar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANTALLA 4: DASHBOARD -->
+    <div id="view-dashboard" class="hidden min-h-screen flex flex-col">
+        <!-- Navbar -->
+        <nav class="w-full glass-panel border-b-0 border-t-0 border-x-0 rounded-none px-6 py-4 flex justify-between items-center z-20 animate-fade-in">
+            <div class="flex items-center gap-3">
+                <div class="bg-white p-1.5 rounded-lg shadow-[0_0_10px_rgba(255,255,255,0.15)] flex items-center justify-center">
+                    <img src="icon.png" alt="Logo" class="h-5 w-5 object-contain" onerror="this.parentElement.style.display='none'">
+                </div>
+                <span class="text-lg font-light tracking-wider">PerezLegarra</span>
+            </div>
+            
+            <div class="flex items-center gap-4 relative">
+                <!-- Botón Admin (Solo visible si es admin) -->
+                <button id="btn-open-admin" class="hidden btn-secondary p-2 rounded-full text-gray-300 hover:text-white" title="Panel de Administración">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </button>
+
+                <!-- Botón Perfil -->
+                <button id="btn-profile" class="h-10 w-10 rounded-full bg-gradient-to-tr from-blue-800 to-purple-800 flex items-center justify-center border border-white/20 hover:border-white/50 transition relative overflow-hidden">
+                    <svg class="w-5 h-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                </button>
+
+                <!-- Dropdown Perfil -->
+                <div id="dropdown-profile" class="hidden absolute top-14 right-0 w-56 bg-black/60 backdrop-blur-xl border border-white/10 rounded-xl p-4 shadow-2xl origin-top-right animate-fade-in">
+                    <div class="mb-4 pb-4 border-b border-white/10">
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mb-1">Sesión Actual</p>
+                        <p id="profile-username" class="text-sm font-medium"></p>
+                        <p id="profile-role" class="text-xs text-purple-400 mt-1 capitalize"></p>
+                    </div>
+                    <button id="btn-logout" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-red-500/10 rounded-lg transition flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido Dashboard -->
+        <main class="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full z-10">
+            <h2 class="text-2xl font-light mb-8 animate-fade-in">Resumen General</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tarjetas (Cuadrados translucidos al 40%) -->
+                <div class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-100">
+                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mb-1">Métricas</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Análisis de rendimiento y estadísticas generales del sistema.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-200">
+                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mb-1">Actividad</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Registro en tiempo real de operaciones y accesos.</p>
+                    </div>
+                </div>
+
+                <a href="https://max.perezlegarra.es" class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-300 cursor-pointer">
+                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden">
+                        <img src="max.png" alt="MaxWalker Icon" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mb-1">MaxWalker</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Gestor de paseos.</p>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- PANTALLA 5: PANEL ADMINISTRACIÓN (Página Separada) -->
+    <div id="view-admin" class="hidden min-h-screen flex flex-col">
+        <!-- Navbar Admin -->
+        <nav class="w-full glass-panel border-b-0 border-t-0 border-x-0 rounded-none px-6 py-4 flex justify-between items-center z-20 animate-fade-in">
+            <div class="flex items-center gap-3">
+                <button id="btn-close-admin" class="text-gray-400 hover:text-white transition flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10" title="Cerrar Panel">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <span class="text-lg font-light tracking-wider">Administración</span>
+        </nav>
+        
+        <!-- Cuerpo Panel -->
+        <main class="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full z-10">
+            <div class="glass-card rounded-2xl flex flex-col md:flex-row p-6 md:p-10 gap-10 animate-fade-in delay-100">
+                
+                <!-- Col Izquierda: Añadir Usuario -->
+                <div class="w-full md:w-1/3">
+                    <h3 class="text-sm uppercase tracking-widest text-gray-400 mb-6">Nuevo Usuario</h3>
+                    <form id="addUserForm" class="space-y-6" novalidate>
+                        <div>
+                            <input type="text" id="new-username" class="input-flush w-full py-2 text-sm" placeholder="Nombre de usuario">
+                        </div>
+                        
+                        <div class="flex items-center gap-3 px-1">
+                            <input type="checkbox" id="require-password" class="checkbox-custom">
+                            <label for="require-password" class="text-xs text-gray-300 cursor-pointer select-none">Definir contraseña ahora</label>
+                        </div>
+
+                        <div id="password-wrapper" class="hidden transition-all duration-300">
+                            <input type="password" id="new-password" class="input-flush w-full py-2 text-sm" placeholder="Contraseña">
+                        </div>
+
+                        <div class="flex items-center gap-3 px-1 pb-2">
+                            <input type="checkbox" id="is-admin" class="checkbox-custom">
+                            <label for="is-admin" class="text-xs text-gray-300 cursor-pointer select-none">Es Administrador</label>
+                        </div>
+                        
+                        <div id="add-user-error" class="error-text opacity-0 !mt-0 !mb-2"></div>
+                        <button type="submit" class="btn-gradient w-full py-3 rounded-xl text-xs font-medium tracking-wider uppercase">
+                            Añadir Usuario
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Col Derecha: Lista de Usuarios -->
+                <div class="w-full md:w-2/3 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8">
+                    <h3 class="text-sm uppercase tracking-widest text-gray-400 mb-6">Usuarios Registrados</h3>
+                    <div id="users-list" class="space-y-3">
+                        <!-- Generado por JS -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ==================== LÓGICA DE APLICACIÓN Y FIREBASE ==================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // ==================== CONFIGURACIÓN DE TU FIREBASE ====================
+        const tuFirebaseConfig = {
+            apiKey: "AIzaSyC7jKwF7hlKfqsSwJK2pI8UdWdbf4mVbKM",
+            authDomain: "perezlegarra-38cee.firebaseapp.com",
+            projectId: "perezlegarra-38cee",
+            storageBucket: "perezlegarra-38cee.firebasestorage.app",
+            messagingSenderId: "611453643483",
+            appId: "1:611453643483:web:2049676f4fc7eef42ebafe",
+            measurementId: "G-LMHQT09RYZ"
+        };
+
+        // Detecta si usas tu Firebase o el entorno de prueba de esta ventana
+        const usandoPropioFirebase = Object.keys(tuFirebaseConfig).length > 0;
+        const firebaseConfig = usandoPropioFirebase ? tuFirebaseConfig : JSON.parse(__firebase_config);
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        // Funciones para manejar las rutas de Firestore de forma dinámica
+        const getColUsers = () => usandoPropioFirebase ? collection(db, 'users') : collection(db, 'artifacts', appId, 'public', 'data', 'users');
+        const getDocUser = (id) => usandoPropioFirebase ? doc(db, 'users', id) : doc(db, 'artifacts', appId, 'public', 'data', 'users', id);
+        const getDocSession = (uid) => usandoPropioFirebase ? doc(db, 'users', uid, 'session', 'current') : doc(db, 'artifacts', appId, 'users', uid, 'session', 'current');
+
+        // Estado Global
+        let fbUser = null; // Usuario Auth (Browser ID)
+        let allUsers = []; // Todos los usuarios en BD
+        let currentAppUser = null; // El usuario logueado en nuestra lógica
+        let isUsersLoaded = false;
+        let isSessionLoaded = false;
+        let forceLoginUserId = null; // Para flujo de forzar contraseña
+
+        // Refs
+        let usersRef;
+        let sessionRef;
+
+        // Init App Auth
+        const initAuth = async () => {
+            try {
+                if (!usandoPropioFirebase && typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    // Fundamental que Auth Anónimo esté activo en tu consola de Firebase
+                    await signInAnonymously(auth);
+                }
+            } catch (err) { console.error("Error Auth:", err); }
+        };
+        initAuth();
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fbUser = user;
+                usersRef = getColUsers();
+                sessionRef = getDocSession(fbUser.uid);
+                setupDatabaseListeners();
+            }
+        });
+
+        function setupDatabaseListeners() {
+            // Escuchar usuarios
+            onSnapshot(usersRef, (snapshot) => {
+                allUsers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                isUsersLoaded = true;
+                if(document.getElementById('view-admin').classList.contains('hidden') === false) {
+                    renderUsersList();
+                }
+                resolveAppState();
+            }, (err) => console.error("Error users:", err));
+
+            // Escuchar sesión privada (Para mantener sesión al cerrar pestaña)
+            onSnapshot(sessionRef, (docSnap) => {
+                isSessionLoaded = true;
+                if (docSnap.exists() && docSnap.data().activeUserId) {
+                    currentAppUser = allUsers.find(u => u.id === docSnap.data().activeUserId) || null;
+                } else {
+                    currentAppUser = null;
+                }
+                resolveAppState();
+            }, (err) => console.error("Error session:", err));
+        }
+
+        // ==================== MÁQUINA DE ESTADO / VISTAS ====================
+        function resolveAppState() {
+            if (!isUsersLoaded || !isSessionLoaded) return;
+
+            // 1. No hay usuarios -> Pantalla Setup Admin
+            if (allUsers.length === 0) {
+                switchView('view-setup');
+                return;
+            }
+
+            // 2. Hay usuario en sesión validado
+            if (currentAppUser) {
+                // Actualizar info perfil
+                document.getElementById('profile-username').innerText = currentAppUser.username;
+                document.getElementById('profile-role').innerText = currentAppUser.role === 'admin' ? 'Administrador' : 'Usuario';
+                
+                // Mostrar/Ocultar boton Admin panel
+                const btnAdmin = document.getElementById('btn-open-admin');
+                if(currentAppUser.role === 'admin') {
+                    btnAdmin.classList.remove('hidden');
+                } else {
+                    btnAdmin.classList.add('hidden');
+                    // Si el usuario pierde el rol de admin estando dentro del panel, lo sacamos por seguridad
+                    if(!document.getElementById('view-admin').classList.contains('hidden')) {
+                        switchView('view-dashboard');
+                    }
+                }
+
+                // Cambiar a dashboard SOLO si viene de la pantalla de Login o Carga
+                // (Si ya está en el panel Admin o en el Dashboard, lo dejamos donde está)
+                if (document.getElementById('view-admin').classList.contains('hidden') && 
+                    document.getElementById('view-dashboard').classList.contains('hidden')) {
+                    switchView('view-dashboard');
+                }
+                return;
+            }
+
+            // 3. No hay sesión -> Login
+            if (forceLoginUserId) {
+                switchView('view-force-password');
+            } else {
+                switchView('view-login');
+            }
+        }
+
+        function switchView(viewId) {
+            const views = ['view-loading', 'view-login', 'view-setup', 'view-force-password', 'view-dashboard', 'view-admin'];
+            views.forEach(v => {
+                document.getElementById(v).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+        }
+
+        // ==================== UTILIDADES UI ====================
+        function showError(msg, containerId) {
+            const el = document.getElementById(containerId);
+            el.innerText = msg;
+            el.classList.remove('opacity-0');
+            setTimeout(() => { el.classList.add('opacity-0'); }, 3000);
+        }
+
+        // ==================== EVENTOS FORMULARIOS ====================
+        
+        // 1. SETUP ADMIN
+        document.getElementById('setupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const u = document.getElementById('setup-username').value.trim();
+            const p = document.getElementById('setup-password').value;
+            
+            if(!u || !p) return showError("Rellena todos los campos.", 'setup-error');
+
+            try {
+                const docRef = await addDoc(usersRef, { username: u, password: btoa(p), role: 'admin' });
+                // Iniciar sesión auto
+                await setDoc(sessionRef, { activeUserId: docRef.id });
+            } catch(err) { showError("Error en BD", 'setup-error'); }
+        });
+
+        // 2. LOGIN
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const u = document.getElementById('login-username').value.trim();
+            const p = document.getElementById('login-password').value;
+
+            if(!u) return showError("Introduce el usuario.", 'login-error');
+            
+            const userDoc = allUsers.find(x => x.username.toLowerCase() === u.toLowerCase());
+            if(!userDoc) return showError("Usuario no encontrado.", 'login-error');
+
+            // Si la clave en BD está vacía (creado por admin sin clave)
+            if(userDoc.password === "") {
+                forceLoginUserId = userDoc.id;
+                document.getElementById('login-password').value = ""; // Limpiar
+                resolveAppState(); // Cambiará a view-force-password
+                return;
+            }
+
+            // Si requiere clave y esta vacío
+            if(!p) return showError("Introduce la contraseña.", 'login-error');
+
+            // Validar clave (En un entorno real nunca btoa en cliente, es mock)
+            if(userDoc.password !== btoa(p)) return showError("Contraseña incorrecta.", 'login-error');
+
+            // Login Exitoso
+            await setDoc(sessionRef, { activeUserId: userDoc.id });
+            document.getElementById('loginForm').reset();
+        });
+
+        // 3. FORZAR CONTRASEÑA
+        document.getElementById('forcePasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const p = document.getElementById('force-password').value;
+            if(!p || p.length < 4) return showError("La clave debe tener 4+ caracteres.", 'force-error');
+
+            try {
+                const userDocRef = getDocUser(forceLoginUserId);
+                await updateDoc(userDocRef, { password: btoa(p) });
+                await setDoc(sessionRef, { activeUserId: forceLoginUserId });
+                forceLoginUserId = null;
+                document.getElementById('forcePasswordForm').reset();
+            } catch (err) { showError("Error al guardar.", 'force-error'); }
+        });
+
+        // 4. LOGOUT (Cierra sesión SOLO al presionar)
+        document.getElementById('btn-logout').addEventListener('click', async () => {
+            await deleteDoc(sessionRef);
+            document.getElementById('dropdown-profile').classList.add('hidden');
+        });
+
+        // ==================== UI DASHBOARD E INTERACCIONES ====================
+        
+        // Dropdown Perfil
+        const btnProfile = document.getElementById('btn-profile');
+        const dropProfile = document.getElementById('dropdown-profile');
+        btnProfile.addEventListener('click', () => { dropProfile.classList.toggle('hidden'); });
+        document.addEventListener('click', (e) => {
+            if(!btnProfile.contains(e.target) && !dropProfile.contains(e.target)) {
+                dropProfile.classList.add('hidden');
+            }
+            if(!e.target.closest('.role-menu-container')) {
+                document.querySelectorAll('.role-dropdown').forEach(el => el.classList.add('hidden'));
+            }
+        });
+
+        // Vistas Admin
+        document.getElementById('btn-open-admin').addEventListener('click', () => {
+            renderUsersList();
+            switchView('view-admin');
+        });
+        document.getElementById('btn-close-admin').addEventListener('click', () => {
+            switchView('view-dashboard');
+        });
+
+        // Admin: Toggle definir contraseña
+        const reqPassCheck = document.getElementById('require-password');
+        const passWrapper = document.getElementById('password-wrapper');
+        reqPassCheck.addEventListener('change', (e) => {
+            if(e.target.checked) passWrapper.classList.remove('hidden');
+            else {
+                passWrapper.classList.add('hidden');
+                document.getElementById('new-password').value = "";
+            }
+        });
+
+        // Admin: Añadir Usuario
+        document.getElementById('addUserForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const u = document.getElementById('new-username').value.trim();
+            const wantsPass = document.getElementById('require-password').checked;
+            const p = document.getElementById('new-password').value;
+            const isAdmin = document.getElementById('is-admin').checked;
+
+            if(!u) return showError("Falta nombre de usuario.", 'add-user-error');
+            if(wantsPass && !p) return showError("Escribe una contraseña.", 'add-user-error');
+            if(allUsers.some(x => x.username.toLowerCase() === u.toLowerCase())) return showError("El usuario ya existe.", 'add-user-error');
+
+            try {
+                await addDoc(usersRef, {
+                    username: u,
+                    password: wantsPass ? btoa(p) : "",
+                    role: isAdmin ? 'admin' : 'user'
+                });
+                document.getElementById('addUserForm').reset();
+                passWrapper.classList.add('hidden');
+                showError("Usuario añadido ✓", 'add-user-error'); // Usamos el error container para exito rapido
+                document.getElementById('add-user-error').style.color = "#4ade80"; // verde
+                setTimeout(()=> document.getElementById('add-user-error').style.color = "", 3000);
+            } catch(err) { showError("Error al añadir.", 'add-user-error'); }
+        });
+
+        // ==================== LISTA DE USUARIOS (ADMIN) ====================
+        window.deleteUser = async (id) => {
+            if(id === currentAppUser.id && allUsers.length > 1) {
+                // No permitir borrarse si hay más para no liar, o permitirlo bajo su riesgo
+            }
+            await deleteDoc(getDocUser(id));
+        };
+
+        window.resetPassword = async (id) => {
+            await updateDoc(getDocUser(id), { password: "" });
+        };
+
+        window.toggleRoleMenu = (e, id) => {
+            e.stopPropagation();
+            // Cerrar otros menús abiertos
+            document.querySelectorAll('.role-dropdown').forEach(el => {
+                if(el.id !== `role-menu-${id}`) el.classList.add('hidden');
+            });
+            document.getElementById(`role-menu-${id}`).classList.toggle('hidden');
+        };
+
+        window.setRole = async (id, newRole) => {
+            await updateDoc(getDocUser(id), { role: newRole });
+        };
+
+        function renderUsersList() {
+            const list = document.getElementById('users-list');
+            list.innerHTML = "";
+            
+            allUsers.forEach(u => {
+                const isMe = currentAppUser && u.id === currentAppUser.id;
+                const statusHtml = u.password === "" 
+                    ? `<span class="text-[10px] bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded ml-2">Sin Clave</span>`
+                    : '';
+                
+                const deleteBtnHtml = isMe 
+                    ? '' 
+                    : `<button onclick="deleteUser('${u.id}')" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300" title="Borrar Usuario">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>`;
+
+                list.innerHTML += `
+                <div class="glass-card p-3 rounded-xl flex items-center justify-between group">
+                    <div>
+                        <p class="text-sm font-medium flex items-center">${u.username} ${isMe ? '<span class="text-[10px] text-gray-500 ml-2">(Tú)</span>' : ''} ${statusHtml}</p>
+                        <p class="text-xs text-gray-400 mt-0.5 uppercase tracking-wider">${u.role}</p>
+                    </div>
+                    <div class="flex gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity overflow-visible">
+                        <div class="relative role-menu-container">
+                            <button onclick="toggleRoleMenu(event, '${u.id}')" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white" title="Cambiar Rol">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                            </button>
+                            <div id="role-menu-${u.id}" class="role-dropdown hidden absolute right-0 md:right-auto top-full mt-2 w-40 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl p-1.5 shadow-2xl z-[60]">
+                                <button onclick="setRole('${u.id}', 'admin')" class="w-full text-left px-3 py-2 text-xs rounded-lg transition flex items-center justify-between ${u.role === 'admin' ? 'bg-purple-600/20 text-purple-300' : 'text-gray-300 hover:bg-white/5'}">
+                                    Administrador
+                                    ${u.role === 'admin' ? '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
+                                </button>
+                                <button onclick="setRole('${u.id}', 'user')" class="w-full text-left px-3 py-2 text-xs rounded-lg transition flex items-center justify-between ${u.role === 'user' ? 'bg-purple-600/20 text-purple-300' : 'text-gray-300 hover:bg-white/5'}">
+                                    Usuario
+                                    ${u.role === 'user' ? '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
+                                </button>
+                            </div>
+                        </div>
+                        <button onclick="resetPassword('${u.id}')" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white" title="Restablecer Contraseña (Dejar en blanco)">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+                        </button>
+                        ${deleteBtnHtml}
+                    </div>
+                </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
