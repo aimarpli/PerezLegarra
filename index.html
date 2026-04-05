@@ -6,8 +6,8 @@
     <title>PerezLegarra</title>
     
     <!-- Icono de la pestaña del navegador (Favicon) -->
-    <link rel="icon" type="image/png" href="icon-white.png">
-    <link rel="apple-touch-icon" href="icon-white.png">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -56,7 +56,7 @@
         }
 
         .glass-card {
-            background: rgba(0, 0, 0, 0.4); /* 40% translucidez como solicitado */
+            background: rgba(0, 0, 0, 0.4); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -123,7 +123,7 @@
         .delay-200 { animation-delay: 200ms; }
         .delay-300 { animation-delay: 300ms; }
 
-        /* Entradas Integradas (Admin) */
+        /* Entradas Integradas (Admin y Modales) */
         .input-flush {
             background: transparent;
             border: none;
@@ -227,8 +227,8 @@
     <div id="view-login" class="hidden flex items-center justify-center min-h-screen">
         <div class="glass-panel relative w-full max-w-sm p-10 rounded-2xl mx-4 animate-fade-in">
             <div class="flex items-center justify-center gap-3 mb-10">
-                <div class="bg-white p-2 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center">
-                    <img src="icon.png" alt="Logo" class="h-7 w-7 object-contain" onerror="this.parentElement.style.display='none'">
+                <div class="bg-white p-2 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center relative w-11 h-11">
+                    <img src="icon.png" alt="Logo" class="h-7 w-7 object-contain relative z-10" onerror="this.parentElement.style.display='none'">
                 </div>
                 <h1 class="text-2xl font-light tracking-wide">PerezLegarra</h1>
             </div>
@@ -301,8 +301,8 @@
         <!-- Navbar -->
         <nav class="w-full glass-panel border-b-0 border-t-0 border-x-0 rounded-none px-6 py-4 flex justify-between items-center z-20 animate-fade-in">
             <div class="flex items-center gap-3">
-                <div class="bg-white p-1.5 rounded-lg shadow-[0_0_10px_rgba(255,255,255,0.15)] flex items-center justify-center">
-                    <img src="icon.png" alt="Logo" class="h-5 w-5 object-contain" onerror="this.parentElement.style.display='none'">
+                <div class="bg-white p-1.5 rounded-lg shadow-[0_0_10px_rgba(255,255,255,0.15)] flex items-center justify-center relative w-8 h-8">
+                    <img src="icon.png" alt="Logo" class="h-5 w-5 object-contain relative z-10" onerror="this.parentElement.style.display='none'">
                 </div>
                 <span class="text-lg font-light tracking-wider">PerezLegarra</span>
             </div>
@@ -337,7 +337,7 @@
         <main class="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full z-10">
             <h2 class="text-2xl font-light mb-8 animate-fade-in">Resumen General</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Tarjetas (Cuadrados translucidos al 40%) -->
+                <!-- Tarjetas -->
                 <div class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-100">
                     <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
                         <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
@@ -360,8 +360,8 @@
 
                 <!-- Botón MaxWalker -->
                 <a href="https://max.perezlegarra.es" target="_blank" class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-300 cursor-pointer">
-                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden">
-                        <img src="max.png" alt="MaxWalker Icon" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden relative">
+                        <img src="max.png" alt="MaxWalker Icon" class="w-full h-full object-cover relative z-10" onerror="this.parentElement.style.display='none'">
                     </div>
                     <div>
                         <h3 class="text-lg font-medium mb-1">MaxWalker</h3>
@@ -486,9 +486,16 @@
         <main class="flex-1 p-6 md:p-10 max-w-4xl mx-auto w-full z-10">
             <div class="flex justify-between items-center mb-8 animate-fade-in delay-100">
                 <h2 class="text-xl font-light">Tus Claves</h2>
-                <button onclick="document.getElementById('modal-vault-add').classList.remove('hidden')" class="btn-gradient w-10 h-10 rounded-full flex items-center justify-center shadow-lg" title="Añadir Nueva">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                </button>
+                <div class="flex gap-3">
+                    <!-- Botón Cambiar PIN de la Caja Fuerte -->
+                    <button onclick="openChangePinModal()" class="btn-secondary w-10 h-10 rounded-full flex items-center justify-center shadow-lg text-gray-300 hover:text-white" title="Cambiar Contraseña (PIN) de la Caja Fuerte">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+                    </button>
+                    <!-- Botón Añadir Clave -->
+                    <button onclick="openAddVaultModal()" class="btn-gradient w-10 h-10 rounded-full flex items-center justify-center shadow-lg" title="Añadir Nueva">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    </button>
+                </div>
             </div>
 
             <div id="vault-list" class="space-y-4 animate-fade-in delay-200">
@@ -497,15 +504,16 @@
         </main>
     </div>
 
-    <!-- MODAL: AÑADIR A CAJA FUERTE -->
+    <!-- MODAL: AÑADIR / EDITAR A CAJA FUERTE -->
     <div id="modal-vault-add" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
         <div class="glass-panel w-full max-w-sm rounded-2xl p-8 relative">
             <button onclick="document.getElementById('modal-vault-add').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <h3 class="text-lg font-medium mb-6">Añadir Clave</h3>
+            <h3 id="vault-modal-title" class="text-lg font-medium mb-6">Añadir Clave</h3>
             
             <form id="addVaultForm" class="space-y-5" novalidate>
+                <input type="hidden" id="vault-edit-id"> <!-- ID Oculto para saber si editamos -->
                 <div>
                     <input type="text" id="vault-title" class="input-flush w-full py-2 text-sm" placeholder="Título (ej: Netflix, Banco)">
                 </div>
@@ -530,6 +538,31 @@
         </div>
     </div>
 
+    <!-- MODAL: CAMBIAR PIN/CONTRASEÑA CAJA FUERTE -->
+    <div id="modal-change-pin" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+        <div class="glass-panel w-full max-w-sm rounded-2xl p-8 relative">
+            <button onclick="document.getElementById('modal-change-pin').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-lg font-medium mb-6">Cambiar Contraseña</h3>
+            <p class="text-xs text-gray-400 mb-6">Actualiza el PIN de acceso a tu Caja Fuerte.</p>
+            
+            <form id="changePinForm" class="space-y-5" novalidate>
+                <div>
+                    <input type="password" id="old-pin" class="input-flush w-full py-2 text-sm" placeholder="PIN Actual" maxlength="4" inputmode="numeric" pattern="\d{4}">
+                </div>
+                <div>
+                    <input type="password" id="new-pin" class="input-flush w-full py-2 text-sm" placeholder="Nuevo PIN (4 números)" maxlength="4" inputmode="numeric" pattern="\d{4}">
+                </div>
+                
+                <div id="change-pin-error" class="error-text opacity-0 !mt-0 !mb-1"></div>
+                <button type="submit" class="btn-gradient w-full py-3.5 rounded-xl text-xs font-medium tracking-wider uppercase">
+                    Actualizar Contraseña
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- ==================== LÓGICA DE APLICACIÓN Y FIREBASE ==================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -547,7 +580,6 @@
             measurementId: "G-LMHQT09RYZ"
         };
 
-        // Detecta si usas tu Firebase o el entorno de prueba de esta ventana
         const usandoPropioFirebase = Object.keys(tuFirebaseConfig).length > 0;
         const firebaseConfig = usandoPropioFirebase ? tuFirebaseConfig : JSON.parse(__firebase_config);
         
@@ -556,20 +588,27 @@
         const db = getFirestore(app);
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-        // Funciones para manejar las rutas de Firestore de forma dinámica
         const getColUsers = () => usandoPropioFirebase ? collection(db, 'users') : collection(db, 'artifacts', appId, 'public', 'data', 'users');
         const getDocUser = (id) => usandoPropioFirebase ? doc(db, 'users', id) : doc(db, 'artifacts', appId, 'public', 'data', 'users', id);
         const getDocSession = (uid) => usandoPropioFirebase ? doc(db, 'users', uid, 'session', 'current') : doc(db, 'artifacts', appId, 'users', uid, 'session', 'current');
+        
+        // Helpers para las rutas de Caja Fuerte
+        const getVaultCol = () => usandoPropioFirebase 
+            ? collection(db, 'users', currentAppUser.id, 'vault') 
+            : collection(db, 'artifacts', appId, 'public', 'data', 'users', currentAppUser.id, 'vault');
+            
+        const getVaultDoc = (itemId) => usandoPropioFirebase 
+            ? doc(db, 'users', currentAppUser.id, 'vault', itemId) 
+            : doc(db, 'artifacts', appId, 'public', 'data', 'users', currentAppUser.id, 'vault', itemId);
 
         // Estado Global
-        let fbUser = null; // Usuario Auth (Browser ID)
-        let allUsers = []; // Todos los usuarios en BD
-        let currentAppUser = null; // El usuario logueado en nuestra lógica
+        let fbUser = null; 
+        let allUsers = []; 
+        let currentAppUser = null; 
         let isUsersLoaded = false;
         let isSessionLoaded = false;
-        let forceLoginUserId = null; // Para flujo de forzar contraseña
+        let forceLoginUserId = null; 
 
-        // Refs
         let usersRef;
         let sessionRef;
 
@@ -579,7 +618,6 @@
                 if (!usandoPropioFirebase && typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
-                    // Fundamental que Auth Anónimo esté activo en tu consola de Firebase
                     await signInAnonymously(auth);
                 }
             } catch (err) { console.error("Error Auth:", err); }
@@ -596,12 +634,10 @@
         });
 
         function setupDatabaseListeners() {
-            // Escuchar usuarios
             onSnapshot(usersRef, (snapshot) => {
                 allUsers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
                 isUsersLoaded = true;
 
-                // ACTUALIZACIÓN CRUCIAL: Mantener la memoria del usuario actualizada en tiempo real (Para el PIN y roles)
                 if (currentAppUser) {
                     currentAppUser = allUsers.find(u => u.id === currentAppUser.id) || null;
                 }
@@ -612,7 +648,6 @@
                 resolveAppState();
             }, (err) => console.error("Error users:", err));
 
-            // Escuchar sesión privada (Para mantener sesión al cerrar pestaña)
             onSnapshot(sessionRef, (docSnap) => {
                 isSessionLoaded = true;
                 if (docSnap.exists() && docSnap.data().activeUserId) {
@@ -624,36 +659,28 @@
             }, (err) => console.error("Error session:", err));
         }
 
-        // ==================== MÁQUINA DE ESTADO / VISTAS ====================
         function resolveAppState() {
             if (!isUsersLoaded || !isSessionLoaded) return;
 
-            // 1. No hay usuarios -> Pantalla Setup Admin
             if (allUsers.length === 0) {
                 switchView('view-setup');
                 return;
             }
 
-            // 2. Hay usuario en sesión validado
             if (currentAppUser) {
-                // Actualizar info perfil
                 document.getElementById('profile-username').innerText = currentAppUser.username;
                 document.getElementById('profile-role').innerText = currentAppUser.role === 'admin' ? 'Administrador' : 'Usuario';
                 
-                // Mostrar/Ocultar boton Admin panel
                 const btnAdmin = document.getElementById('btn-open-admin');
                 if(currentAppUser.role === 'admin') {
                     btnAdmin.classList.remove('hidden');
                 } else {
                     btnAdmin.classList.add('hidden');
-                    // Si el usuario pierde el rol de admin estando dentro del panel, lo sacamos por seguridad
                     if(!document.getElementById('view-admin').classList.contains('hidden')) {
                         switchView('view-dashboard');
                     }
                 }
 
-                // Cambiar a dashboard SOLO si viene de la pantalla de Login o Carga
-                // (Evita que el usuario sea expulsado de la Caja Fuerte o de Configuración al guardar datos)
                 const isViewingAppPage = 
                     !document.getElementById('view-admin').classList.contains('hidden') || 
                     !document.getElementById('view-pin').classList.contains('hidden') || 
@@ -665,7 +692,6 @@
                 return;
             }
 
-            // 3. No hay sesión -> Login
             if (forceLoginUserId) {
                 switchView('view-force-password');
             } else {
@@ -689,24 +715,18 @@
             setTimeout(() => { el.classList.add('opacity-0'); }, 3000);
         }
 
-        // ==================== EVENTOS FORMULARIOS ====================
-        
-        // 1. SETUP ADMIN
+        // ==================== EVENTOS FORMULARIOS GLOBALES ====================
         document.getElementById('setupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const u = document.getElementById('setup-username').value.trim();
             const p = document.getElementById('setup-password').value;
-            
             if(!u || !p) return showError("Rellena todos los campos.", 'setup-error');
-
             try {
                 const docRef = await addDoc(usersRef, { username: u, password: btoa(p), role: 'admin' });
-                // Iniciar sesión auto
                 await setDoc(sessionRef, { activeUserId: docRef.id });
             } catch(err) { showError("Error en BD", 'setup-error'); }
         });
 
-        // 2. LOGIN
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const u = document.getElementById('login-username').value.trim();
@@ -717,31 +737,24 @@
             const userDoc = allUsers.find(x => x.username.toLowerCase() === u.toLowerCase());
             if(!userDoc) return showError("Usuario no encontrado.", 'login-error');
 
-            // Si la clave en BD está vacía (creado por admin sin clave)
             if(userDoc.password === "") {
                 forceLoginUserId = userDoc.id;
-                document.getElementById('login-password').value = ""; // Limpiar
-                resolveAppState(); // Cambiará a view-force-password
+                document.getElementById('login-password').value = ""; 
+                resolveAppState(); 
                 return;
             }
 
-            // Si requiere clave y esta vacío
             if(!p) return showError("Introduce la contraseña.", 'login-error');
-
-            // Validar clave (En un entorno real nunca btoa en cliente, es mock)
             if(userDoc.password !== btoa(p)) return showError("Contraseña incorrecta.", 'login-error');
 
-            // Login Exitoso
             await setDoc(sessionRef, { activeUserId: userDoc.id });
             document.getElementById('loginForm').reset();
         });
 
-        // 3. FORZAR CONTRASEÑA
         document.getElementById('forcePasswordForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const p = document.getElementById('force-password').value;
             if(!p || p.length < 4) return showError("La clave debe tener 4+ caracteres.", 'force-error');
-
             try {
                 const userDocRef = getDocUser(forceLoginUserId);
                 await updateDoc(userDocRef, { password: btoa(p) });
@@ -751,15 +764,12 @@
             } catch (err) { showError("Error al guardar.", 'force-error'); }
         });
 
-        // 4. LOGOUT (Cierra sesión SOLO al presionar)
         document.getElementById('btn-logout').addEventListener('click', async () => {
             await deleteDoc(sessionRef);
             document.getElementById('dropdown-profile').classList.add('hidden');
         });
 
         // ==================== UI DASHBOARD E INTERACCIONES ====================
-        
-        // Dropdown Perfil
         const btnProfile = document.getElementById('btn-profile');
         const dropProfile = document.getElementById('dropdown-profile');
         btnProfile.addEventListener('click', () => { dropProfile.classList.toggle('hidden'); });
@@ -772,7 +782,6 @@
             }
         });
 
-        // Vistas Admin
         document.getElementById('btn-open-admin').addEventListener('click', () => {
             renderUsersList();
             switchView('view-admin');
@@ -781,7 +790,6 @@
             switchView('view-dashboard');
         });
 
-        // Admin: Toggle definir contraseña
         const reqPassCheck = document.getElementById('require-password');
         const passWrapper = document.getElementById('password-wrapper');
         reqPassCheck.addEventListener('change', (e) => {
@@ -792,7 +800,6 @@
             }
         });
 
-        // Admin: Añadir Usuario
         document.getElementById('addUserForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const u = document.getElementById('new-username').value.trim();
@@ -812,8 +819,8 @@
                 });
                 document.getElementById('addUserForm').reset();
                 passWrapper.classList.add('hidden');
-                showError("Usuario añadido ✓", 'add-user-error'); // Usamos el error container para exito rapido
-                document.getElementById('add-user-error').style.color = "#4ade80"; // verde
+                showError("Usuario añadido ✓", 'add-user-error'); 
+                document.getElementById('add-user-error').style.color = "#4ade80"; 
                 setTimeout(()=> document.getElementById('add-user-error').style.color = "", 3000);
             } catch(err) { showError("Error al añadir.", 'add-user-error'); }
         });
@@ -821,7 +828,7 @@
         // ==================== LISTA DE USUARIOS (ADMIN) ====================
         window.deleteUser = async (id) => {
             if(id === currentAppUser.id && allUsers.length > 1) {
-                // No permitir borrarse si hay más para no liar, o permitirlo bajo su riesgo
+                // ...
             }
             await deleteDoc(getDocUser(id));
         };
@@ -836,7 +843,6 @@
 
         window.toggleRoleMenu = (e, id) => {
             e.stopPropagation();
-            // Cerrar otros menús abiertos
             document.querySelectorAll('.role-dropdown').forEach(el => {
                 if(el.id !== `role-menu-${id}`) el.classList.add('hidden');
             });
@@ -903,7 +909,6 @@
         let isSettingPin = false;
         let unsubscribeVault = null;
 
-        // Abrir flujo de Caja Fuerte
         window.openVaultFlow = () => {
             if (!currentAppUser) return;
             if (currentAppUser.pin === undefined || currentAppUser.pin === "") {
@@ -920,7 +925,6 @@
             switchView('view-pin');
         };
 
-        // Manejo del teclado numérico
         window.handlePinPress = async (num) => {
             if (currentPin.length < 4) {
                 currentPin += num;
@@ -961,16 +965,11 @@
             }
         }
 
-        // Abrir vista principal de la Caja Fuerte
         window.openVault = () => {
             switchView('view-vault');
             if (unsubscribeVault) unsubscribeVault();
             
-            const vaultRef = usandoPropioFirebase 
-                ? collection(db, 'users', currentAppUser.id, 'vault') 
-                : collection(db, 'artifacts', appId, 'public', 'data', 'users', currentAppUser.id, 'vault');
-            
-            unsubscribeVault = onSnapshot(vaultRef, (snap) => {
+            unsubscribeVault = onSnapshot(getVaultCol(), (snap) => {
                 const items = snap.docs.map(d => ({id: d.id, ...d.data()}));
                 renderVaultItems(items);
             });
@@ -984,7 +983,6 @@
             switchView('view-dashboard');
         };
 
-        // Mostrar / Ocultar campo de Email según tipo de clave
         document.getElementById('vault-type').addEventListener('change', (e) => {
             const emailWrapper = document.getElementById('vault-email-wrapper');
             if (e.target.value === 'password') {
@@ -995,9 +993,43 @@
             }
         });
 
-        // Guardar nueva clave
+        window.openAddVaultModal = () => {
+            document.getElementById('vault-edit-id').value = "";
+            document.getElementById('vault-modal-title').innerText = "Añadir Clave";
+            document.getElementById('addVaultForm').reset();
+            document.getElementById('vault-email-wrapper').classList.remove('hidden');
+            document.getElementById('modal-vault-add').classList.remove('hidden');
+        };
+
+        window.openEditVaultModal = (id, title, type, email, encodedSecret) => {
+            document.getElementById('vault-edit-id').value = id;
+            document.getElementById('vault-modal-title').innerText = "Editar Clave";
+            document.getElementById('vault-title').value = title;
+            document.getElementById('vault-type').value = type;
+            
+            if (type === 'password') {
+                document.getElementById('vault-email-wrapper').classList.remove('hidden');
+                document.getElementById('vault-email').value = email || "";
+            } else {
+                document.getElementById('vault-email-wrapper').classList.add('hidden');
+                document.getElementById('vault-email').value = "";
+            }
+            
+            document.getElementById('vault-secret').value = atob(encodedSecret);
+            document.getElementById('modal-vault-add').classList.remove('hidden');
+        };
+
+        window.deleteVaultItem = async (itemId) => {
+            try {
+                await deleteDoc(getVaultDoc(itemId));
+            } catch (err) {
+                console.error("Error al borrar:", err);
+            }
+        };
+
         document.getElementById('addVaultForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const editId = document.getElementById('vault-edit-id').value;
             const title = document.getElementById('vault-title').value.trim();
             const type = document.getElementById('vault-type').value;
             const email = document.getElementById('vault-email').value.trim();
@@ -1007,26 +1039,50 @@
             if (type === 'password' && !email) return showError("El correo es obligatorio.", 'vault-add-error');
 
             try {
-                const vaultRef = usandoPropioFirebase 
-                    ? collection(db, 'users', currentAppUser.id, 'vault') 
-                    : collection(db, 'artifacts', appId, 'public', 'data', 'users', currentAppUser.id, 'vault');
-                
-                await addDoc(vaultRef, {
+                const dataToSave = {
                     title,
                     type,
                     email: type === 'password' ? email : null,
-                    secret: btoa(secret) // Codificado de forma básica
-                });
+                    secret: btoa(secret) 
+                };
+
+                if (editId) {
+                    await updateDoc(getVaultDoc(editId), dataToSave);
+                } else {
+                    await addDoc(getVaultCol(), dataToSave);
+                }
                 
                 document.getElementById('modal-vault-add').classList.add('hidden');
-                document.getElementById('addVaultForm').reset();
-                document.getElementById('vault-email-wrapper').classList.remove('hidden'); // Reset a estado default
             } catch (err) {
                 showError("Error al guardar la clave.", 'vault-add-error');
             }
         });
 
-        // Renderizar lista
+        // ====== LÓGICA CAMBIO DE PIN (CAJA FUERTE) ======
+        window.openChangePinModal = () => {
+            document.getElementById('changePinForm').reset();
+            document.getElementById('modal-change-pin').classList.remove('hidden');
+        };
+
+        document.getElementById('changePinForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const oldPin = document.getElementById('old-pin').value;
+            const newPin = document.getElementById('new-pin').value;
+
+            if (!oldPin || !newPin) return showError("Rellena ambos campos.", 'change-pin-error');
+            if (newPin.length !== 4 || isNaN(newPin)) return showError("El nuevo PIN debe ser de 4 números.", 'change-pin-error');
+            if (btoa(oldPin) !== currentAppUser.pin) return showError("La contraseña actual es incorrecta.", 'change-pin-error');
+
+            try {
+                await updateDoc(getDocUser(currentAppUser.id), { pin: btoa(newPin) });
+                document.getElementById('modal-change-pin').classList.add('hidden');
+                document.getElementById('changePinForm').reset();
+                // Opcional: mostrar aviso de éxito de alguna forma
+            } catch (err) {
+                showError("Error al actualizar.", 'change-pin-error');
+            }
+        });
+
         function renderVaultItems(items) {
             const list = document.getElementById('vault-list');
             list.innerHTML = "";
@@ -1038,6 +1094,10 @@
 
             items.forEach(item => {
                 const isPwd = item.type === 'password';
+                const safeTitle = item.title.replace(/'/g, "\\'");
+                const safeEmail = item.email ? item.email.replace(/'/g, "\\'") : '';
+                const safeSecret = item.secret.replace(/'/g, "\\'");
+
                 list.innerHTML += `
                 <div class="glass-card p-5 rounded-2xl flex items-center justify-between group">
                     <div>
@@ -1047,15 +1107,25 @@
                             <span class="text-sm bg-white/5 px-3 py-1.5 rounded-lg text-purple-300 tracking-widest font-mono select-none transition-all" id="secret-${item.id}">••••••••</span>
                         </div>
                     </div>
-                    <button onclick="toggleSecret('${item.id}', '${item.secret}')" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 transition" title="Revelar">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                    </button>
+                    
+                    <div class="flex gap-2">
+                        <button onclick="toggleSecret('${item.id}', '${safeSecret}')" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 transition" title="Revelar">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </button>
+                        
+                        <button onclick="openEditVaultModal('${item.id}', '${safeTitle}', '${item.type}', '${safeEmail}', '${safeSecret}')" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-blue-300 transition" title="Editar">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        </button>
+                        
+                        <button onclick="deleteVaultItem('${item.id}')" class="p-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 transition" title="Borrar">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
                 </div>
                 `;
             });
         }
 
-        // Alternar visibilidad de la clave
         window.toggleSecret = (id, encodedSecret) => {
             const el = document.getElementById(`secret-${id}`);
             if (el.innerText === '••••••••') {
@@ -1071,3 +1141,6 @@
     </script>
 </body>
 </html>
+
+
+
