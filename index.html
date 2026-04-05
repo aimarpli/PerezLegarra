@@ -6,8 +6,8 @@
     <title>PerezLegarra</title>
     
     <!-- Icono de la pestaña del navegador (Favicon) -->
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" type="image/png" href="icon-white.png">
+    <link rel="apple-touch-icon" href="icon-white.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -179,6 +179,31 @@
         .checkbox-custom:checked::before {
             transform: scale(1);
         }
+        
+        /* PIN & Numpad */
+        .pin-dot {
+            width: 1rem; height: 1rem;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.2s;
+        }
+        .pin-dot.filled {
+            background: white;
+            border-color: white;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        .numpad-btn {
+            width: 4rem; height: 4rem;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; font-weight: 300;
+            transition: all 0.2s;
+            margin: 0 auto;
+        }
+        .numpad-btn:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
+        .numpad-btn:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
@@ -202,8 +227,9 @@
     <div id="view-login" class="hidden flex items-center justify-center min-h-screen">
         <div class="glass-panel relative w-full max-w-sm p-10 rounded-2xl mx-4 animate-fade-in">
             <div class="flex items-center justify-center gap-3 mb-10">
-                <div class="bg-white p-2 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center">
-                    <img src="icon.png" alt="Logo" class="h-7 w-7 object-contain" onerror="this.parentElement.style.display='none'">
+                <div class="bg-white p-2 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center relative w-11 h-11">
+                    <svg class="w-6 h-6 text-black absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <img src="icon.png" alt="Logo" class="h-7 w-7 object-contain relative z-10" onerror="this.style.display='none'">
                 </div>
                 <h1 class="text-2xl font-light tracking-wide">PerezLegarra</h1>
             </div>
@@ -276,8 +302,9 @@
         <!-- Navbar -->
         <nav class="w-full glass-panel border-b-0 border-t-0 border-x-0 rounded-none px-6 py-4 flex justify-between items-center z-20 animate-fade-in">
             <div class="flex items-center gap-3">
-                <div class="bg-white p-1.5 rounded-lg shadow-[0_0_10px_rgba(255,255,255,0.15)] flex items-center justify-center">
-                    <img src="icon.png" alt="Logo" class="h-5 w-5 object-contain" onerror="this.parentElement.style.display='none'">
+                <div class="bg-white p-1.5 rounded-lg shadow-[0_0_10px_rgba(255,255,255,0.15)] flex items-center justify-center relative w-8 h-8">
+                    <svg class="w-4 h-4 text-black absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <img src="icon.png" alt="Logo" class="h-5 w-5 object-contain relative z-10" onerror="this.style.display='none'">
                 </div>
                 <span class="text-lg font-light tracking-wider">PerezLegarra</span>
             </div>
@@ -323,19 +350,21 @@
                     </div>
                 </div>
 
-                <div class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-200">
+                <div onclick="openVaultFlow()" class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-200 cursor-pointer">
                     <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
-                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-lg font-medium mb-1">Actividad</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed">Registro en tiempo real de operaciones y accesos.</p>
+                        <h3 class="text-lg font-medium mb-1">Caja Fuerte</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Gestor de contraseñas y claves de recuperación.</p>
                     </div>
                 </div>
 
-                <a href="https://max.perezlegarra.es" class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-300 cursor-pointer">
-                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden">
-                        <img src="max.png" alt="MaxWalker Icon" class="w-full h-full object-cover">
+                <!-- Botón MaxWalker -->
+                <a href="https://max.perezlegarra.es" target="_blank" class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-300 cursor-pointer">
+                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden relative">
+                        <svg class="w-6 h-6 text-purple-400 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <img src="max.png" alt="MaxWalker Icon" class="w-full h-full object-cover relative z-10" onerror="this.style.display='none'">
                     </div>
                     <div>
                         <h3 class="text-lg font-medium mb-1">MaxWalker</h3>
@@ -403,6 +432,106 @@
         </main>
     </div>
 
+    <!-- PANTALLA 6: PIN DE ACCESO A CAJA FUERTE -->
+    <div id="view-pin" class="hidden flex items-center justify-center min-h-screen">
+        <div class="glass-panel relative w-full max-w-sm p-10 rounded-2xl mx-4 animate-fade-in">
+            <button onclick="closeVault()" class="absolute top-4 left-4 text-gray-400 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <div class="text-center mb-8">
+                <div class="flex justify-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h1 id="pin-title" class="text-xl font-light tracking-wide mb-1">Caja Fuerte</h1>
+                <p id="pin-desc" class="text-xs text-gray-400 mt-2">Introduce tu PIN de 4 dígitos.</p>
+            </div>
+            
+            <div class="flex justify-center gap-4 mb-8">
+                <div id="dot-1" class="pin-dot"></div>
+                <div id="dot-2" class="pin-dot"></div>
+                <div id="dot-3" class="pin-dot"></div>
+                <div id="dot-4" class="pin-dot"></div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 max-w-[250px] mx-auto">
+                <button onclick="handlePinPress('1')" class="numpad-btn">1</button>
+                <button onclick="handlePinPress('2')" class="numpad-btn">2</button>
+                <button onclick="handlePinPress('3')" class="numpad-btn">3</button>
+                <button onclick="handlePinPress('4')" class="numpad-btn">4</button>
+                <button onclick="handlePinPress('5')" class="numpad-btn">5</button>
+                <button onclick="handlePinPress('6')" class="numpad-btn">6</button>
+                <button onclick="handlePinPress('7')" class="numpad-btn">7</button>
+                <button onclick="handlePinPress('8')" class="numpad-btn">8</button>
+                <button onclick="handlePinPress('9')" class="numpad-btn">9</button>
+                <button onclick="handlePinClear()" class="numpad-btn text-red-400">C</button>
+                <button onclick="handlePinPress('0')" class="numpad-btn">0</button>
+                <button onclick="handlePinDel()" class="numpad-btn">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z"></path></svg>
+                </button>
+            </div>
+            <div id="pin-error" class="error-text opacity-0 mt-4"></div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 7: CAJA FUERTE (LISTADO) -->
+    <div id="view-vault" class="hidden min-h-screen flex flex-col">
+        <!-- Navbar Vault -->
+        <nav class="w-full glass-panel border-b-0 border-t-0 border-x-0 rounded-none px-6 py-4 flex justify-between items-center z-20 animate-fade-in">
+            <div class="flex items-center gap-3">
+                <button onclick="closeVault()" class="text-gray-400 hover:text-white transition flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10" title="Cerrar Caja Fuerte">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                </button>
+            </div>
+            <span class="text-lg font-light tracking-wider">Caja Fuerte</span>
+            <div class="w-10"></div> <!-- Espaciador -->
+        </nav>
+        
+        <main class="flex-1 p-6 md:p-10 max-w-4xl mx-auto w-full z-10">
+            <div class="flex justify-between items-center mb-8 animate-fade-in delay-100">
+                <h2 class="text-xl font-light">Tus Claves</h2>
+                <button onclick="document.getElementById('modal-vault-add').classList.remove('hidden')" class="btn-gradient w-10 h-10 rounded-full flex items-center justify-center shadow-lg" title="Añadir Nueva">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                </button>
+            </div>
+
+            <div id="vault-list" class="space-y-4 animate-fade-in delay-200">
+                <!-- Items generados por JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: AÑADIR A CAJA FUERTE -->
+    <div id="modal-vault-add" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+        <div class="glass-panel w-full max-w-sm rounded-2xl p-8 relative">
+            <button onclick="document.getElementById('modal-vault-add').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-lg font-medium mb-6">Añadir Clave</h3>
+            
+            <form id="addVaultForm" class="space-y-5" novalidate>
+                <div>
+                    <input type="text" id="vault-title" class="input-flush w-full py-2 text-sm" placeholder="Título (ej: Netflix, Banco)">
+                </div>
+                <div>
+                    <select id="vault-type" class="input-minimal w-full px-4 py-3 rounded-xl text-sm appearance-none">
+                        <option value="password">Contraseña</option>
+                        <option value="recovery">Clave de Recuperación</option>
+                    </select>
+                </div>
+                <div id="vault-email-wrapper">
+                    <input type="email" id="vault-email" class="input-flush w-full py-2 text-sm" placeholder="Correo Electrónico">
+                </div>
+                <div>
+                    <input type="text" id="vault-secret" class="input-flush w-full py-2 text-sm" placeholder="Contraseña / Clave Secreta">
+                </div>
+                
+                <div id="vault-add-error" class="error-text opacity-0 !mt-0 !mb-1"></div>
+                <button type="submit" class="btn-gradient w-full py-3.5 rounded-xl text-xs font-medium tracking-wider uppercase">
+                    Guardar
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- ==================== LÓGICA DE APLICACIÓN Y FIREBASE ==================== -->
     <script type="module">
@@ -474,6 +603,12 @@
             onSnapshot(usersRef, (snapshot) => {
                 allUsers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
                 isUsersLoaded = true;
+
+                // ACTUALIZACIÓN CRUCIAL: Mantener la memoria del usuario actualizada en tiempo real (Para el PIN y roles)
+                if (currentAppUser) {
+                    currentAppUser = allUsers.find(u => u.id === currentAppUser.id) || null;
+                }
+
                 if(document.getElementById('view-admin').classList.contains('hidden') === false) {
                     renderUsersList();
                 }
@@ -521,9 +656,13 @@
                 }
 
                 // Cambiar a dashboard SOLO si viene de la pantalla de Login o Carga
-                // (Si ya está en el panel Admin o en el Dashboard, lo dejamos donde está)
-                if (document.getElementById('view-admin').classList.contains('hidden') && 
-                    document.getElementById('view-dashboard').classList.contains('hidden')) {
+                // (Evita que el usuario sea expulsado de la Caja Fuerte o de Configuración al guardar datos)
+                const isViewingAppPage = 
+                    !document.getElementById('view-admin').classList.contains('hidden') || 
+                    !document.getElementById('view-pin').classList.contains('hidden') || 
+                    !document.getElementById('view-vault').classList.contains('hidden');
+
+                if (!isViewingAppPage && document.getElementById('view-dashboard').classList.contains('hidden')) {
                     switchView('view-dashboard');
                 }
                 return;
@@ -538,7 +677,7 @@
         }
 
         function switchView(viewId) {
-            const views = ['view-loading', 'view-login', 'view-setup', 'view-force-password', 'view-dashboard', 'view-admin'];
+            const views = ['view-loading', 'view-login', 'view-setup', 'view-force-password', 'view-dashboard', 'view-admin', 'view-pin', 'view-vault'];
             views.forEach(v => {
                 document.getElementById(v).classList.add('hidden');
             });
@@ -694,6 +833,10 @@
             await updateDoc(getDocUser(id), { password: "" });
         };
 
+        window.resetPin = async (id) => {
+            await updateDoc(getDocUser(id), { pin: "" });
+        };
+
         window.toggleRoleMenu = (e, id) => {
             e.stopPropagation();
             // Cerrar otros menús abiertos
@@ -748,12 +891,186 @@
                         <button onclick="resetPassword('${u.id}')" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white" title="Restablecer Contraseña (Dejar en blanco)">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
                         </button>
+                        <button onclick="resetPin('${u.id}')" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-indigo-300 hover:text-indigo-200" title="Restablecer PIN de Caja Fuerte">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </button>
                         ${deleteBtnHtml}
                     </div>
                 </div>
                 `;
             });
         }
+
+        // ==================== LÓGICA DE CAJA FUERTE Y PIN ====================
+        let currentPin = "";
+        let isSettingPin = false;
+        let unsubscribeVault = null;
+
+        // Abrir flujo de Caja Fuerte
+        window.openVaultFlow = () => {
+            if (!currentAppUser) return;
+            if (currentAppUser.pin === undefined || currentAppUser.pin === "") {
+                isSettingPin = true;
+                document.getElementById('pin-title').innerText = "Crear PIN";
+                document.getElementById('pin-desc').innerText = "Define un PIN de 4 dígitos para tu caja fuerte.";
+            } else {
+                isSettingPin = false;
+                document.getElementById('pin-title').innerText = "Caja Fuerte";
+                document.getElementById('pin-desc').innerText = "Introduce tu PIN de 4 dígitos.";
+            }
+            currentPin = "";
+            updatePinDots();
+            switchView('view-pin');
+        };
+
+        // Manejo del teclado numérico
+        window.handlePinPress = async (num) => {
+            if (currentPin.length < 4) {
+                currentPin += num;
+                updatePinDots();
+            }
+            if (currentPin.length === 4) {
+                if (isSettingPin) {
+                    await updateDoc(getDocUser(currentAppUser.id), { pin: btoa(currentPin) });
+                    isSettingPin = false;
+                    openVault();
+                } else {
+                    if (btoa(currentPin) === currentAppUser.pin) {
+                        openVault();
+                    } else {
+                        showError("PIN incorrecto.", 'pin-error');
+                        currentPin = "";
+                        updatePinDots();
+                    }
+                }
+            }
+        };
+
+        window.handlePinDel = () => {
+            currentPin = currentPin.slice(0, -1);
+            updatePinDots();
+        };
+
+        window.handlePinClear = () => {
+            currentPin = "";
+            updatePinDots();
+        };
+
+        function updatePinDots() {
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i <= currentPin.length) dot.classList.add('filled');
+                else dot.classList.remove('filled');
+            }
+        }
+
+        // Abrir vista principal de la Caja Fuerte
+        window.openVault = () => {
+            switchView('view-vault');
+            if (unsubscribeVault) unsubscribeVault();
+            
+            const vaultRef = usandoPropioFirebase 
+                ? collection(db, 'users', currentAppUser.id, 'vault') 
+                : collection(db, 'artifacts', appId, 'public', 'data', 'users', currentAppUser.id, 'vault');
+            
+            unsubscribeVault = onSnapshot(vaultRef, (snap) => {
+                const items = snap.docs.map(d => ({id: d.id, ...d.data()}));
+                renderVaultItems(items);
+            });
+        };
+
+        window.closeVault = () => {
+            if (unsubscribeVault) {
+                unsubscribeVault();
+                unsubscribeVault = null;
+            }
+            switchView('view-dashboard');
+        };
+
+        // Mostrar / Ocultar campo de Email según tipo de clave
+        document.getElementById('vault-type').addEventListener('change', (e) => {
+            const emailWrapper = document.getElementById('vault-email-wrapper');
+            if (e.target.value === 'password') {
+                emailWrapper.classList.remove('hidden');
+            } else {
+                emailWrapper.classList.add('hidden');
+                document.getElementById('vault-email').value = "";
+            }
+        });
+
+        // Guardar nueva clave
+        document.getElementById('addVaultForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('vault-title').value.trim();
+            const type = document.getElementById('vault-type').value;
+            const email = document.getElementById('vault-email').value.trim();
+            const secret = document.getElementById('vault-secret').value;
+
+            if (!title || !secret) return showError("Título y Clave son obligatorios.", 'vault-add-error');
+            if (type === 'password' && !email) return showError("El correo es obligatorio.", 'vault-add-error');
+
+            try {
+                const vaultRef = usandoPropioFirebase 
+                    ? collection(db, 'users', currentAppUser.id, 'vault') 
+                    : collection(db, 'artifacts', appId, 'public', 'data', 'users', currentAppUser.id, 'vault');
+                
+                await addDoc(vaultRef, {
+                    title,
+                    type,
+                    email: type === 'password' ? email : null,
+                    secret: btoa(secret) // Codificado de forma básica
+                });
+                
+                document.getElementById('modal-vault-add').classList.add('hidden');
+                document.getElementById('addVaultForm').reset();
+                document.getElementById('vault-email-wrapper').classList.remove('hidden'); // Reset a estado default
+            } catch (err) {
+                showError("Error al guardar la clave.", 'vault-add-error');
+            }
+        });
+
+        // Renderizar lista
+        function renderVaultItems(items) {
+            const list = document.getElementById('vault-list');
+            list.innerHTML = "";
+            
+            if (items.length === 0) {
+                list.innerHTML = `<div class="text-center text-gray-400 text-sm mt-12">No hay claves guardadas.</div>`;
+                return;
+            }
+
+            items.forEach(item => {
+                const isPwd = item.type === 'password';
+                list.innerHTML += `
+                <div class="glass-card p-5 rounded-2xl flex items-center justify-between group">
+                    <div>
+                        <h4 class="text-base font-medium">${item.title}</h4>
+                        ${isPwd && item.email ? `<p class="text-xs text-gray-400 mt-1">${item.email}</p>` : `<p class="text-[10px] text-indigo-300 mt-1 uppercase tracking-wider">Clave de Recuperación</p>`}
+                        <div class="mt-3 flex items-center">
+                            <span class="text-sm bg-white/5 px-3 py-1.5 rounded-lg text-purple-300 tracking-widest font-mono select-none transition-all" id="secret-${item.id}">••••••••</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleSecret('${item.id}', '${item.secret}')" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 transition" title="Revelar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    </button>
+                </div>
+                `;
+            });
+        }
+
+        // Alternar visibilidad de la clave
+        window.toggleSecret = (id, encodedSecret) => {
+            const el = document.getElementById(`secret-${id}`);
+            if (el.innerText === '••••••••') {
+                el.innerText = atob(encodedSecret);
+                el.classList.add('text-white');
+                el.classList.remove('text-purple-300', 'tracking-widest');
+            } else {
+                el.innerText = '••••••••';
+                el.classList.remove('text-white');
+                el.classList.add('text-purple-300', 'tracking-widest');
+            }
+        };
     </script>
 </body>
 </html>
