@@ -337,16 +337,16 @@
         <main class="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full z-10">
             <h2 class="text-2xl font-light mb-8 animate-fade-in">Resumen General</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Tarjetas -->
-                <div class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-100">
-                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
-                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                <!-- Tarjeta PLDrive -->
+                <a href="https://drive.perezlegarra.es" target="_blank" class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-100 cursor-pointer">
+                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 relative overflow-hidden">
+                        <svg class="w-6 h-6 text-blue-400 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-lg font-medium mb-1">Métricas</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed">Análisis de rendimiento y estadísticas generales del sistema.</p>
+                        <h3 class="text-lg font-medium mb-1">PLDrive</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Almacenamiento en la nube.</p>
                     </div>
-                </div>
+                </a>
 
                 <div onclick="openVaultFlow()" class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-200 cursor-pointer">
                     <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
@@ -354,7 +354,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg font-medium mb-1">Caja Fuerte</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed">Gestor de contraseñas y claves de recuperación.</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">Gestor de claves y archivos encriptados localmente.</p>
                     </div>
                 </div>
 
@@ -368,13 +368,23 @@
                         <p class="text-xs text-gray-400 leading-relaxed">Gestor de paseos.</p>
                     </div>
                 </a>
+
+                <!-- Botón PLMusic -->
+                <a href="https://music.perezlegarra.es" target="_blank" class="glass-card p-6 rounded-2xl h-48 flex flex-col justify-between animate-fade-in delay-300 cursor-pointer">
+                    <div class="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden relative">
+                        <svg class="w-6 h-6 text-pink-400 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mb-1">PLMusic</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Reproductor de música.</p>
+                    </div>
+                </a>
             </div>
         </main>
     </div>
 
-    <!-- PANTALLA 5: PANEL ADMINISTRACIÓN (Página Separada) -->
+    <!-- PANTALLA 5: PANEL ADMINISTRACIÓN -->
     <div id="view-admin" class="hidden min-h-screen flex flex-col">
-        <!-- Navbar Admin -->
         <nav class="w-full glass-panel border-b-0 border-t-0 border-x-0 rounded-none px-6 py-4 flex justify-between items-center z-20 animate-fade-in">
             <div class="flex items-center gap-3">
                 <button id="btn-close-admin" class="text-gray-400 hover:text-white transition flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10" title="Cerrar Panel">
@@ -384,47 +394,37 @@
             <span class="text-lg font-light tracking-wider">Administración</span>
         </nav>
         
-        <!-- Cuerpo Panel -->
         <main class="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full z-10">
             <div class="glass-card rounded-2xl flex flex-col md:flex-row p-6 md:p-10 gap-10 animate-fade-in delay-100">
-                
-                <!-- Col Izquierda: Añadir Usuario -->
                 <div class="w-full md:w-1/3">
                     <h3 class="text-sm uppercase tracking-widest text-gray-400 mb-6">Nuevo Usuario</h3>
                     <form id="addUserForm" class="space-y-6" novalidate>
                         <div>
                             <input type="text" id="new-username" class="input-flush w-full py-2 text-sm" placeholder="Nombre de usuario">
                         </div>
-                        
                         <div class="flex items-center gap-3 px-1">
                             <input type="checkbox" id="require-password" class="checkbox-custom">
                             <label for="require-password" class="text-xs text-gray-300 cursor-pointer select-none">Definir contraseña ahora</label>
                         </div>
-
                         <div id="password-wrapper" class="hidden transition-all duration-300">
                             <input type="password" id="new-password" class="input-flush w-full py-2 text-sm" placeholder="Contraseña">
                         </div>
-
                         <div class="flex items-center gap-3 px-1 pb-2">
                             <input type="checkbox" id="is-admin" class="checkbox-custom">
                             <label for="is-admin" class="text-xs text-gray-300 cursor-pointer select-none">Es Administrador</label>
                         </div>
-                        
                         <div id="add-user-error" class="error-text opacity-0 !mt-0 !mb-2"></div>
                         <button type="submit" class="btn-gradient w-full py-3 rounded-xl text-xs font-medium tracking-wider uppercase">
                             Añadir Usuario
                         </button>
                     </form>
                 </div>
-
-                <!-- Col Derecha: Lista de Usuarios -->
                 <div class="w-full md:w-2/3 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8">
                     <h3 class="text-sm uppercase tracking-widest text-gray-400 mb-6">Usuarios Registrados</h3>
                     <div id="users-list" class="space-y-3">
                         <!-- Generado por JS -->
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
@@ -472,7 +472,6 @@
 
     <!-- PANTALLA 7: CAJA FUERTE (LISTADO) -->
     <div id="view-vault" class="hidden min-h-screen flex flex-col">
-        <!-- Navbar Vault -->
         <nav class="w-full glass-panel border-b-0 border-t-0 border-x-0 rounded-none px-6 py-4 flex justify-between items-center z-20 animate-fade-in">
             <div class="flex items-center gap-3">
                 <button onclick="closeVault()" class="text-gray-400 hover:text-white transition flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10" title="Cerrar Caja Fuerte">
@@ -480,19 +479,16 @@
                 </button>
             </div>
             <span class="text-lg font-light tracking-wider">Caja Fuerte</span>
-            <div class="w-10"></div> <!-- Espaciador -->
+            <div class="w-10"></div>
         </nav>
         
         <main class="flex-1 p-6 md:p-10 max-w-4xl mx-auto w-full z-10">
-            <div class="flex justify-between items-center mb-8 animate-fade-in delay-100">
-                <h2 class="text-xl font-light">Tus Claves</h2>
+            <div class="flex justify-end items-center mb-8 animate-fade-in delay-100">
                 <div class="flex gap-3">
-                    <!-- Botón Cambiar PIN de la Caja Fuerte -->
-                    <button onclick="openChangePinModal()" class="btn-secondary w-10 h-10 rounded-full flex items-center justify-center shadow-lg text-gray-300 hover:text-white" title="Cambiar Contraseña (PIN) de la Caja Fuerte">
+                    <button onclick="openChangePinModal()" class="btn-secondary w-10 h-10 rounded-full flex items-center justify-center shadow-lg text-gray-300 hover:text-white" title="Cambiar PIN">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
                     </button>
-                    <!-- Botón Añadir Clave -->
-                    <button onclick="openAddVaultModal()" class="btn-gradient w-10 h-10 rounded-full flex items-center justify-center shadow-lg" title="Añadir Nueva">
+                    <button onclick="openAddVaultModal()" class="btn-gradient w-10 h-10 rounded-full flex items-center justify-center shadow-lg" title="Añadir Nuevo">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     </button>
                 </div>
@@ -510,24 +506,33 @@
             <button onclick="document.getElementById('modal-vault-add').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <h3 id="vault-modal-title" class="text-lg font-medium mb-6">Añadir Clave</h3>
+            <h3 id="vault-modal-title" class="text-lg font-medium mb-6">Añadir Secreto</h3>
             
             <form id="addVaultForm" class="space-y-5" novalidate>
-                <input type="hidden" id="vault-edit-id"> <!-- ID Oculto para saber si editamos -->
+                <input type="hidden" id="vault-edit-id"> 
                 <div>
-                    <input type="text" id="vault-title" class="input-flush w-full py-2 text-sm" placeholder="Título (ej: Netflix, Banco)">
+                    <input type="text" id="vault-title" class="input-flush w-full py-2 text-sm" placeholder="Título (ej: Netflix, Contrato)">
                 </div>
                 <div>
                     <select id="vault-type" class="input-minimal w-full px-4 py-3 rounded-xl text-sm appearance-none">
                         <option value="password">Contraseña</option>
                         <option value="recovery">Clave de Recuperación</option>
+                        <option value="file">Archivo Seguro</option>
                     </select>
                 </div>
+                
                 <div id="vault-email-wrapper">
                     <input type="email" id="vault-email" class="input-flush w-full py-2 text-sm" placeholder="Correo Electrónico">
                 </div>
-                <div>
+                
+                <div id="vault-secret-wrapper">
                     <input type="text" id="vault-secret" class="input-flush w-full py-2 text-sm" placeholder="Contraseña / Clave Secreta">
+                </div>
+
+                <div id="vault-file-wrapper" class="hidden">
+                    <label id="vault-file-label" class="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 ml-1">Seleccionar Archivo (Max 650KB)</label>
+                    <input type="file" id="vault-file" class="input-flush w-full py-2 text-sm text-gray-300">
+                    <input type="hidden" id="vault-filename-hidden">
                 </div>
                 
                 <div id="vault-add-error" class="error-text opacity-0 !mt-0 !mb-1"></div>
@@ -538,14 +543,13 @@
         </div>
     </div>
 
-    <!-- MODAL: CAMBIAR PIN/CONTRASEÑA CAJA FUERTE -->
+    <!-- MODAL: CAMBIAR PIN -->
     <div id="modal-change-pin" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
         <div class="glass-panel w-full max-w-sm rounded-2xl p-8 relative">
             <button onclick="document.getElementById('modal-change-pin').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <h3 class="text-lg font-medium mb-6">Cambiar Contraseña</h3>
-            <p class="text-xs text-gray-400 mb-6">Actualiza el PIN de acceso a tu Caja Fuerte.</p>
+            <h3 class="text-lg font-medium mb-6">Cambiar PIN</h3>
             
             <form id="changePinForm" class="space-y-5" novalidate>
                 <div>
@@ -554,10 +558,9 @@
                 <div>
                     <input type="password" id="new-pin" class="input-flush w-full py-2 text-sm" placeholder="Nuevo PIN (4 números)" maxlength="4" inputmode="numeric" pattern="\d{4}">
                 </div>
-                
                 <div id="change-pin-error" class="error-text opacity-0 !mt-0 !mb-1"></div>
                 <button type="submit" class="btn-gradient w-full py-3.5 rounded-xl text-xs font-medium tracking-wider uppercase">
-                    Actualizar Contraseña
+                    Actualizar
                 </button>
             </form>
         </div>
@@ -569,7 +572,6 @@
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // ==================== CONFIGURACIÓN DE TU FIREBASE ====================
         const tuFirebaseConfig = {
             apiKey: "AIzaSyC7jKwF7hlKfqsSwJK2pI8UdWdbf4mVbKM",
             authDomain: "perezlegarra-38cee.firebaseapp.com",
@@ -592,7 +594,6 @@
         const getDocUser = (id) => usandoPropioFirebase ? doc(db, 'users', id) : doc(db, 'artifacts', appId, 'public', 'data', 'users', id);
         const getDocSession = (uid) => usandoPropioFirebase ? doc(db, 'users', uid, 'session', 'current') : doc(db, 'artifacts', appId, 'users', uid, 'session', 'current');
         
-        // Helpers para las rutas de Caja Fuerte
         const getVaultCol = () => usandoPropioFirebase 
             ? collection(db, 'users', currentAppUser.id, 'vault') 
             : collection(db, 'artifacts', appId, 'public', 'data', 'users', currentAppUser.id, 'vault');
@@ -601,7 +602,6 @@
             ? doc(db, 'users', currentAppUser.id, 'vault', itemId) 
             : doc(db, 'artifacts', appId, 'public', 'data', 'users', currentAppUser.id, 'vault', itemId);
 
-        // Estado Global
         let fbUser = null; 
         let allUsers = []; 
         let currentAppUser = null; 
@@ -612,7 +612,6 @@
         let usersRef;
         let sessionRef;
 
-        // Init App Auth
         const initAuth = async () => {
             try {
                 if (!usandoPropioFirebase && typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -661,11 +660,7 @@
 
         function resolveAppState() {
             if (!isUsersLoaded || !isSessionLoaded) return;
-
-            if (allUsers.length === 0) {
-                switchView('view-setup');
-                return;
-            }
+            if (allUsers.length === 0) { switchView('view-setup'); return; }
 
             if (currentAppUser) {
                 document.getElementById('profile-username').innerText = currentAppUser.username;
@@ -692,22 +687,16 @@
                 return;
             }
 
-            if (forceLoginUserId) {
-                switchView('view-force-password');
-            } else {
-                switchView('view-login');
-            }
+            if (forceLoginUserId) { switchView('view-force-password'); } 
+            else { switchView('view-login'); }
         }
 
         function switchView(viewId) {
             const views = ['view-loading', 'view-login', 'view-setup', 'view-force-password', 'view-dashboard', 'view-admin', 'view-pin', 'view-vault'];
-            views.forEach(v => {
-                document.getElementById(v).classList.add('hidden');
-            });
+            views.forEach(v => document.getElementById(v).classList.add('hidden'));
             document.getElementById(viewId).classList.remove('hidden');
         }
 
-        // ==================== UTILIDADES UI ====================
         function showError(msg, containerId) {
             const el = document.getElementById(containerId);
             el.innerText = msg;
@@ -715,7 +704,18 @@
             setTimeout(() => { el.classList.add('opacity-0'); }, 3000);
         }
 
-        // ==================== EVENTOS FORMULARIOS GLOBALES ====================
+        // ==================== LÓGICA DE ENCRIPTACIÓN MATEMÁTICA ====================
+        // Encripta/Desencripta cadenas (incluido Base64) usando el PIN del usuario
+        function xorEncryptDecrypt(input, key) {
+            if (!key) return input;
+            let output = '';
+            for (let i = 0; i < input.length; i++) {
+                output += String.fromCharCode(input.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+            }
+            return output;
+        }
+
+        // ==================== FORMULARIOS GLOBALES ====================
         document.getElementById('setupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const u = document.getElementById('setup-username').value.trim();
@@ -733,7 +733,6 @@
             const p = document.getElementById('login-password').value;
 
             if(!u) return showError("Introduce el usuario.", 'login-error');
-            
             const userDoc = allUsers.find(x => x.username.toLowerCase() === u.toLowerCase());
             if(!userDoc) return showError("Usuario no encontrado.", 'login-error');
 
@@ -769,7 +768,6 @@
             document.getElementById('dropdown-profile').classList.add('hidden');
         });
 
-        // ==================== UI DASHBOARD E INTERACCIONES ====================
         const btnProfile = document.getElementById('btn-profile');
         const dropProfile = document.getElementById('dropdown-profile');
         btnProfile.addEventListener('click', () => { dropProfile.classList.toggle('hidden'); });
@@ -794,10 +792,7 @@
         const passWrapper = document.getElementById('password-wrapper');
         reqPassCheck.addEventListener('change', (e) => {
             if(e.target.checked) passWrapper.classList.remove('hidden');
-            else {
-                passWrapper.classList.add('hidden');
-                document.getElementById('new-password').value = "";
-            }
+            else { passWrapper.classList.add('hidden'); document.getElementById('new-password').value = ""; }
         });
 
         document.getElementById('addUserForm').addEventListener('submit', async (e) => {
@@ -812,11 +807,7 @@
             if(allUsers.some(x => x.username.toLowerCase() === u.toLowerCase())) return showError("El usuario ya existe.", 'add-user-error');
 
             try {
-                await addDoc(usersRef, {
-                    username: u,
-                    password: wantsPass ? btoa(p) : "",
-                    role: isAdmin ? 'admin' : 'user'
-                });
+                await addDoc(usersRef, { username: u, password: wantsPass ? btoa(p) : "", role: isAdmin ? 'admin' : 'user' });
                 document.getElementById('addUserForm').reset();
                 passWrapper.classList.add('hidden');
                 showError("Usuario añadido ✓", 'add-user-error'); 
@@ -825,21 +816,14 @@
             } catch(err) { showError("Error al añadir.", 'add-user-error'); }
         });
 
-        // ==================== LISTA DE USUARIOS (ADMIN) ====================
         window.deleteUser = async (id) => {
-            if(id === currentAppUser.id && allUsers.length > 1) {
-                // ...
-            }
+            if(id === currentAppUser.id && allUsers.length > 1) { /* Permitido pero peligroso */ }
             await deleteDoc(getDocUser(id));
         };
 
-        window.resetPassword = async (id) => {
-            await updateDoc(getDocUser(id), { password: "" });
-        };
-
-        window.resetPin = async (id) => {
-            await updateDoc(getDocUser(id), { pin: "" });
-        };
+        window.resetPassword = async (id) => { await updateDoc(getDocUser(id), { password: "" }); };
+        window.resetPin = async (id) => { await updateDoc(getDocUser(id), { pin: "" }); };
+        window.setRole = async (id, newRole) => { await updateDoc(getDocUser(id), { role: newRole }); };
 
         window.toggleRoleMenu = (e, id) => {
             e.stopPropagation();
@@ -849,25 +833,15 @@
             document.getElementById(`role-menu-${id}`).classList.toggle('hidden');
         };
 
-        window.setRole = async (id, newRole) => {
-            await updateDoc(getDocUser(id), { role: newRole });
-        };
-
         function renderUsersList() {
             const list = document.getElementById('users-list');
             list.innerHTML = "";
-            
+            if (allUsers.length === 0) return;
+
             allUsers.forEach(u => {
                 const isMe = currentAppUser && u.id === currentAppUser.id;
-                const statusHtml = u.password === "" 
-                    ? `<span class="text-[10px] bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded ml-2">Sin Clave</span>`
-                    : '';
-                
-                const deleteBtnHtml = isMe 
-                    ? '' 
-                    : `<button onclick="deleteUser('${u.id}')" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300" title="Borrar Usuario">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>`;
+                const statusHtml = u.password === "" ? `<span class="text-[10px] bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded ml-2">Sin Clave</span>` : '';
+                const deleteBtnHtml = isMe ? '' : `<button onclick="deleteUser('${u.id}')" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300" title="Borrar Usuario"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>`;
 
                 list.innerHTML += `
                 <div class="glass-card p-3 rounded-xl flex items-center justify-between group">
@@ -882,12 +856,10 @@
                             </button>
                             <div id="role-menu-${u.id}" class="role-dropdown hidden absolute right-0 md:right-auto top-full mt-2 w-40 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl p-1.5 shadow-2xl z-[60]">
                                 <button onclick="setRole('${u.id}', 'admin')" class="w-full text-left px-3 py-2 text-xs rounded-lg transition flex items-center justify-between ${u.role === 'admin' ? 'bg-purple-600/20 text-purple-300' : 'text-gray-300 hover:bg-white/5'}">
-                                    Administrador
-                                    ${u.role === 'admin' ? '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
+                                    Administrador ${u.role === 'admin' ? '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
                                 </button>
                                 <button onclick="setRole('${u.id}', 'user')" class="w-full text-left px-3 py-2 text-xs rounded-lg transition flex items-center justify-between ${u.role === 'user' ? 'bg-purple-600/20 text-purple-300' : 'text-gray-300 hover:bg-white/5'}">
-                                    Usuario
-                                    ${u.role === 'user' ? '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
+                                    Usuario ${u.role === 'user' ? '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
                                 </button>
                             </div>
                         </div>
@@ -947,15 +919,8 @@
             }
         };
 
-        window.handlePinDel = () => {
-            currentPin = currentPin.slice(0, -1);
-            updatePinDots();
-        };
-
-        window.handlePinClear = () => {
-            currentPin = "";
-            updatePinDots();
-        };
+        window.handlePinDel = () => { currentPin = currentPin.slice(0, -1); updatePinDots(); };
+        window.handlePinClear = () => { currentPin = ""; updatePinDots(); };
 
         function updatePinDots() {
             for (let i = 1; i <= 4; i++) {
@@ -976,57 +941,59 @@
         };
 
         window.closeVault = () => {
-            if (unsubscribeVault) {
-                unsubscribeVault();
-                unsubscribeVault = null;
-            }
+            if (unsubscribeVault) { unsubscribeVault(); unsubscribeVault = null; }
             switchView('view-dashboard');
         };
 
+        // Selector visual entre Textos y Archivos
         document.getElementById('vault-type').addEventListener('change', (e) => {
-            const emailWrapper = document.getElementById('vault-email-wrapper');
-            if (e.target.value === 'password') {
-                emailWrapper.classList.remove('hidden');
-            } else {
-                emailWrapper.classList.add('hidden');
-                document.getElementById('vault-email').value = "";
-            }
+            const type = e.target.value;
+            document.getElementById('vault-email-wrapper').classList.toggle('hidden', type !== 'password');
+            document.getElementById('vault-secret-wrapper').classList.toggle('hidden', type === 'file');
+            document.getElementById('vault-file-wrapper').classList.toggle('hidden', type !== 'file');
         });
 
         window.openAddVaultModal = () => {
             document.getElementById('vault-edit-id').value = "";
-            document.getElementById('vault-modal-title').innerText = "Añadir Clave";
+            document.getElementById('vault-modal-title').innerText = "Añadir Secreto";
             document.getElementById('addVaultForm').reset();
             document.getElementById('vault-email-wrapper').classList.remove('hidden');
+            document.getElementById('vault-secret-wrapper').classList.remove('hidden');
+            document.getElementById('vault-file-wrapper').classList.add('hidden');
+            document.getElementById('vault-file-label').innerText = "Seleccionar Archivo (Max 650KB)";
             document.getElementById('modal-vault-add').classList.remove('hidden');
         };
 
-        window.openEditVaultModal = (id, title, type, email, encodedSecret) => {
+        window.openEditVaultModal = (id, title, type, email, encodedSecret, fileName) => {
             document.getElementById('vault-edit-id').value = id;
-            document.getElementById('vault-modal-title').innerText = "Editar Clave";
+            document.getElementById('vault-modal-title').innerText = "Editar Secreto";
             document.getElementById('vault-title').value = title;
             document.getElementById('vault-type').value = type;
             
-            if (type === 'password') {
-                document.getElementById('vault-email-wrapper').classList.remove('hidden');
-                document.getElementById('vault-email').value = email || "";
+            document.getElementById('vault-email-wrapper').classList.toggle('hidden', type !== 'password');
+            document.getElementById('vault-email').value = email || "";
+            
+            // Ocultar/Mostrar campos según tipo de edición
+            if (type === 'file') {
+                document.getElementById('vault-secret-wrapper').classList.add('hidden');
+                document.getElementById('vault-file-wrapper').classList.remove('hidden');
+                document.getElementById('vault-file-label').innerText = `Archivo Actual: ${fileName} (Sube uno nuevo si quieres cambiarlo)`;
+                document.getElementById('vault-filename-hidden').value = fileName;
+                document.getElementById('vault-secret').value = encodedSecret; // Guardamos el archivo cifrado para no perderlo si no suben otro
             } else {
-                document.getElementById('vault-email-wrapper').classList.add('hidden');
-                document.getElementById('vault-email').value = "";
+                document.getElementById('vault-secret-wrapper').classList.remove('hidden');
+                document.getElementById('vault-file-wrapper').classList.add('hidden');
+                document.getElementById('vault-secret').value = atob(encodedSecret);
             }
             
-            document.getElementById('vault-secret').value = atob(encodedSecret);
             document.getElementById('modal-vault-add').classList.remove('hidden');
         };
 
         window.deleteVaultItem = async (itemId) => {
-            try {
-                await deleteDoc(getVaultDoc(itemId));
-            } catch (err) {
-                console.error("Error al borrar:", err);
-            }
+            try { await deleteDoc(getVaultDoc(itemId)); } catch (err) {}
         };
 
+        // Función para guardar tanto textos como Archivos en Base de Datos
         document.getElementById('addVaultForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const editId = document.getElementById('vault-edit-id').value;
@@ -1034,31 +1001,74 @@
             const type = document.getElementById('vault-type').value;
             const email = document.getElementById('vault-email').value.trim();
             const secret = document.getElementById('vault-secret').value;
+            const fileInput = document.getElementById('vault-file');
 
-            if (!title || !secret) return showError("Título y Clave son obligatorios.", 'vault-add-error');
-            if (type === 'password' && !email) return showError("El correo es obligatorio.", 'vault-add-error');
+            if (!title) return showError("El Título es obligatorio.", 'vault-add-error');
 
-            try {
-                const dataToSave = {
-                    title,
-                    type,
+            const saveToDatabase = async (dataToSave) => {
+                try {
+                    if (editId) { await updateDoc(getVaultDoc(editId), dataToSave); } 
+                    else { await addDoc(getVaultCol(), dataToSave); }
+                    document.getElementById('modal-vault-add').classList.add('hidden');
+                } catch (err) { showError("Error al guardar.", 'vault-add-error'); }
+            };
+
+            // Lógica si el secreto es un Archivo
+            if (type === 'file') {
+                if (editId && (!fileInput.files || fileInput.files.length === 0)) {
+                    // Mantenemos el archivo existente
+                    saveToDatabase({
+                        title, type,
+                        fileName: document.getElementById('vault-filename-hidden').value,
+                        secret: secret // En edición, esto contiene el archivo ya cifrado
+                    });
+                } else {
+                    if (!fileInput.files || fileInput.files.length === 0) return showError("Selecciona un archivo.", 'vault-add-error');
+                    const file = fileInput.files[0];
+                    if (file.size > 650 * 1024) return showError("El archivo supera el límite (650KB).", 'vault-add-error');
+
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const dataUrl = e.target.result;
+                        // CIFRAMOS el archivo con XOR usando el PIN y luego lo codificamos en Base64
+                        const encryptedData = btoa(xorEncryptDecrypt(dataUrl, currentPin));
+                        saveToDatabase({ title, type, fileName: file.name, secret: encryptedData });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            } 
+            // Lógica si el secreto es texto (Contraseña / Recuperación)
+            else {
+                if (!secret) return showError("La clave es obligatoria.", 'vault-add-error');
+                if (type === 'password' && !email) return showError("El correo es obligatorio.", 'vault-add-error');
+
+                saveToDatabase({
+                    title, type,
                     email: type === 'password' ? email : null,
                     secret: btoa(secret) 
-                };
-
-                if (editId) {
-                    await updateDoc(getVaultDoc(editId), dataToSave);
-                } else {
-                    await addDoc(getVaultCol(), dataToSave);
-                }
-                
-                document.getElementById('modal-vault-add').classList.add('hidden');
-            } catch (err) {
-                showError("Error al guardar la clave.", 'vault-add-error');
+                });
             }
         });
 
-        // ====== LÓGICA CAMBIO DE PIN (CAJA FUERTE) ======
+        // Descarga y descifra el archivo automáticamente en memoria
+        window.downloadEncryptedFile = (encodedSecret, fileName) => {
+            try {
+                // DESCIFRAR: 1. Revertir B64 2. Revertir XOR con el PIN 
+                const decryptedDataUrl = xorEncryptDecrypt(atob(encodedSecret), currentPin);
+                
+                // Forzar descarga del archivo
+                const a = document.createElement('a');
+                a.href = decryptedDataUrl;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } catch(e) {
+                alert("Error al descifrar. ¿El PIN es correcto?");
+            }
+        };
+
+        // ====== LÓGICA CAMBIO DE PIN ======
         window.openChangePinModal = () => {
             document.getElementById('changePinForm').reset();
             document.getElementById('modal-change-pin').classList.remove('hidden');
@@ -1077,46 +1087,68 @@
                 await updateDoc(getDocUser(currentAppUser.id), { pin: btoa(newPin) });
                 document.getElementById('modal-change-pin').classList.add('hidden');
                 document.getElementById('changePinForm').reset();
-                // Opcional: mostrar aviso de éxito de alguna forma
-            } catch (err) {
-                showError("Error al actualizar.", 'change-pin-error');
-            }
+                currentPin = newPin; // Actualizamos el pin en memoria para la sesión actual
+            } catch (err) { showError("Error al actualizar.", 'change-pin-error'); }
         });
 
         function renderVaultItems(items) {
             const list = document.getElementById('vault-list');
             list.innerHTML = "";
-            
             if (items.length === 0) {
-                list.innerHTML = `<div class="text-center text-gray-400 text-sm mt-12">No hay claves guardadas.</div>`;
+                list.innerHTML = `<div class="text-center text-gray-400 text-sm mt-12">No hay secretos guardados.</div>`;
                 return;
             }
 
             items.forEach(item => {
                 const isPwd = item.type === 'password';
+                const isFile = item.type === 'file';
                 const safeTitle = item.title.replace(/'/g, "\\'");
                 const safeEmail = item.email ? item.email.replace(/'/g, "\\'") : '';
-                const safeSecret = item.secret.replace(/'/g, "\\'");
+                const safeFileName = item.fileName ? item.fileName.replace(/'/g, "\\'") : '';
+                
+                // Asegurarse de no romper strings al pasarlas como parámetros
+                const safeSecret = item.secret.replace(/'/g, "\\'"); 
+
+                let descriptionHtml = '';
+                if (isPwd && item.email) descriptionHtml = `<p class="text-xs text-gray-400 mt-1">${item.email}</p>`;
+                else if (isFile) descriptionHtml = `<p class="text-[10px] text-green-400 mt-1 uppercase tracking-wider">Documento Cifrado: ${item.fileName}</p>`;
+                else descriptionHtml = `<p class="text-[10px] text-indigo-300 mt-1 uppercase tracking-wider">Clave de Recuperación</p>`;
+
+                let visualSecretHtml = '';
+                if (isFile) {
+                    visualSecretHtml = `<span class="text-xs bg-green-500/10 px-3 py-1.5 rounded-lg text-green-300 tracking-wider font-mono select-none">🔒 Archivo Protegido</span>`;
+                } else {
+                    visualSecretHtml = `<span class="text-sm bg-white/5 px-3 py-1.5 rounded-lg text-purple-300 tracking-widest font-mono select-none transition-all" id="secret-${item.id}">••••••••</span>`;
+                }
+
+                let primaryBtnHtml = '';
+                if (isFile) {
+                    primaryBtnHtml = `
+                    <button onclick="downloadEncryptedFile('${safeSecret}', '${safeFileName}')" class="p-2 rounded-xl bg-green-500/10 hover:bg-green-500/20 text-green-300 transition" title="Descargar / Ver Archivo">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </button>`;
+                } else {
+                    primaryBtnHtml = `
+                    <button onclick="toggleSecret('${item.id}', '${safeSecret}')" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 transition" title="Revelar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    </button>`;
+                }
 
                 list.innerHTML += `
                 <div class="glass-card p-5 rounded-2xl flex items-center justify-between group">
                     <div>
                         <h4 class="text-base font-medium">${item.title}</h4>
-                        ${isPwd && item.email ? `<p class="text-xs text-gray-400 mt-1">${item.email}</p>` : `<p class="text-[10px] text-indigo-300 mt-1 uppercase tracking-wider">Clave de Recuperación</p>`}
+                        ${descriptionHtml}
                         <div class="mt-3 flex items-center">
-                            <span class="text-sm bg-white/5 px-3 py-1.5 rounded-lg text-purple-300 tracking-widest font-mono select-none transition-all" id="secret-${item.id}">••••••••</span>
+                            ${visualSecretHtml}
                         </div>
                     </div>
                     
                     <div class="flex gap-2">
-                        <button onclick="toggleSecret('${item.id}', '${safeSecret}')" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 transition" title="Revelar">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                        </button>
-                        
-                        <button onclick="openEditVaultModal('${item.id}', '${safeTitle}', '${item.type}', '${safeEmail}', '${safeSecret}')" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-blue-300 transition" title="Editar">
+                        ${primaryBtnHtml}
+                        <button onclick="openEditVaultModal('${item.id}', '${safeTitle}', '${item.type}', '${safeEmail}', '${safeSecret}', '${safeFileName}')" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-blue-300 transition" title="Editar">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                         </button>
-                        
                         <button onclick="deleteVaultItem('${item.id}')" class="p-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 transition" title="Borrar">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
@@ -1141,6 +1173,3 @@
     </script>
 </body>
 </html>
-
-
-
